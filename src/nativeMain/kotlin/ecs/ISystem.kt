@@ -8,40 +8,40 @@ abstract class ISystem(protected val engine: Engine) {
 
     protected val entities = arrayListOf<Entity>()
 
-    open suspend fun preUpdate(entity: Entity) {}
-    open suspend fun update(entity: Entity) {}
-    open suspend fun postUpdate(entity: Entity) {}
+    open fun preUpdate(entity: Entity) {}
+    open fun update(entity: Entity) {}
+    open fun postUpdate(entity: Entity) {}
 
     fun preUpdateAll() {
 //        println("\t---pre-update------------")
-        GlobalScope.launch {
+//        GlobalScope.launch {
             entities.forEach {
                 preUpdate(it)
 //                println(it)
             }
-        }
+//        }
 //        println("\t---end-pre-update---------")
     }
 
     fun updateAll() {
 //        println("\t---update------------")
-        GlobalScope.launch {
+//        GlobalScope.launch {
             entities.forEach {
                 update(it)
 //                println(it)
             }
-        }
+//        }
 //        println("\t---end-update---------")
     }
 
     fun postUpdateAll() {
 //        println("\t---post-update------------")
-        GlobalScope.launch {
+//        GlobalScope.launch {
             entities.forEach {
                 postUpdate(it)
 //                println(it)
             }
-        }
+//        }
 //        println("\t---end-post-update---------")
     }
 

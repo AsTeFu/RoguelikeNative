@@ -31,7 +31,7 @@ class LightingSystem(engine: Engine) : ISystem(engine) {
 
     override fun filter(entity: Entity): Boolean = entity.hasComponent<Lighting>()
 
-    override suspend fun update(entity: Entity) {
+    override fun update(entity: Entity) {
         if (entity.hasComponent<WallComponent>()) return
 
         val transform = entity.getComponent<Transform>()!!
@@ -58,7 +58,7 @@ class LightingSystem(engine: Engine) : ISystem(engine) {
         }
     }
 
-    override suspend fun postUpdate(entity: Entity) {
+    override fun postUpdate(entity: Entity) {
         if (!entity.hasComponent<WallComponent>()) return
 
         val transform = entity.getComponent<Transform>()!!

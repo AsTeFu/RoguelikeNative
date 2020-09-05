@@ -4,6 +4,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import platform.posix.CLOCKS_PER_SEC
+import platform.posix.clock
 
 
 class SystemManager(private val engine: Engine) {
@@ -20,8 +22,10 @@ class SystemManager(private val engine: Engine) {
     }
 
     fun update() {
+
+        val startTime = clock()
 //        println("===UPDATE===========================\n")
-        runBlocking {
+//        runBlocking {
 
 //            println("===pre=update====================")
 
@@ -31,8 +35,8 @@ class SystemManager(private val engine: Engine) {
             }
 
 //            println("===end=pre=update====================\n")
-        }
-        runBlocking {
+//        }
+//        runBlocking {
 //            println("===update====================")
 
             systems.forEach {
@@ -41,8 +45,8 @@ class SystemManager(private val engine: Engine) {
             }
 
 //            println("===end=update====================\n")
-        }
-        runBlocking {
+//        }
+//        runBlocking {
 //            println("===post=update====================")
 
             systems.forEach {
@@ -51,7 +55,12 @@ class SystemManager(private val engine: Engine) {
             }
 
 //            println("===end=post=update====================\n")
-        }
+//        }
+
+        val endTime = clock()
+
+        println("elapsed time: ${endTime - startTime}")
+
 
 //        println("===END=UPDATE===========================\n\n\n")
     }
