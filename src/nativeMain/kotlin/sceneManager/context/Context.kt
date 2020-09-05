@@ -13,6 +13,6 @@ class Context {
         return this
     }
 
-    inline fun <reified T : ObjectDto> getObject(): T? = dtoObjects[T::class] as? T
+    inline fun <reified T : ObjectDto> getObject(): T = (dtoObjects[T::class] as? T)!!
 
 }

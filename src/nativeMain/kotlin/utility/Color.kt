@@ -31,6 +31,8 @@ class Color {
     fun toHex(): String = "#${r.toHex()}${g.toHex()}${b.toHex()}"
 
     private fun String.hexToRgb(): Color {
+        if (!Regex("""^#[0-9A-Fa-f]{6}$""").matches(this)) throw Exception("$this can't parse to color")
+
         val result = this.substring(1).toInt(16)
 
         val r = (result shr 16) and 255
@@ -44,5 +46,7 @@ class Color {
         val hex = this.toString(16)
         return if (hex.length > 1) hex else "0$hex"
     }
+
+    fun toInt() : Int = (a shl 24) or (r shl 16) or (g shl 8) or b
 
 }

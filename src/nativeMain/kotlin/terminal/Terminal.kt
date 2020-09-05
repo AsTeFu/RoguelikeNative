@@ -1,12 +1,12 @@
 package terminal
 
 import atf.bearlibterminal.*
+import kotlinx.cinterop.convert
+import utility.Color
+import utility.Colors
 import utility.Vector2
 
 object Terminal {
-
-    const val space = TK_SPACE
-    const val close = TK_CLOSE
 
     fun open(): Boolean = terminal_open() == 0
 
@@ -34,6 +34,11 @@ object Terminal {
         return this
     }
 
+    fun setSize(size: Vector2): Terminal {
+        terminal_set("window.size=${size.x}x${size.y};")
+        return this
+    }
+
     fun setCellSize(x: Int, y: Int): Terminal {
         terminal_set("window.cellsize=${x}x$y;")
         return this
@@ -43,7 +48,6 @@ object Terminal {
         terminal_set(option)
         return this
     }
-
 
     fun print(x: Int, y: Int, string: String) = terminal_print(x, y, string)
 
@@ -58,5 +62,11 @@ object Terminal {
     fun setLayer(layer: Int) = terminal_layer(layer)
 
     fun pick(position: Vector2, layer: Int) = terminal_pick(position.x, position.y, layer)
+
+    fun setColor(color: Color) = terminal_color(color.toInt().convert())
+
+    fun setColor(color: Colors) = terminal_color(color.color.toInt().convert())
+
+    fun setColor(color: String) = terminal_color(Color(color).toInt().convert())
 
 }

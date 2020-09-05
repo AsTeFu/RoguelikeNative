@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.cli.jvm.main
 
 plugins {
     kotlin("multiplatform") version "1.4.0"
+    kotlin("plugin.serialization") version "1.4.0"
 }
 
 group = "atf"
@@ -9,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 kotlin {
@@ -46,6 +48,8 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.0-RC")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:1.0.0-RC")
             }
         }
         val nativeTest by getting

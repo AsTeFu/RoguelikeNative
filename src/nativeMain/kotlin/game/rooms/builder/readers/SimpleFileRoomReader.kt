@@ -7,10 +7,8 @@ import utility.reader.FileReader
 
 class SimpleFileRoomReader(private val fileName: String) : IRoomReader {
 
-    private val reader: FileReader = FileReader()
-
     override fun read(): RoomStructure {
-        val symbols = reader.read(fileName, FileOpenType.Read)
+        val symbols = FileReader.readBySymbol(fileName, FileOpenType.Read)
         val roomStructure = RoomStructure()
 
         repeat(symbols.size) { i ->

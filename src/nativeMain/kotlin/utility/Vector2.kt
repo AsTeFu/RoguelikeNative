@@ -1,9 +1,11 @@
 package utility
 
+import kotlinx.serialization.Serializable
 import platform.posix.abs
 import kotlin.math.sign
 
 class Vector2(val x: Int, val y: Int) {
+
     val length2 = x * x + y * y
 
     fun translate(dx: Int, dy: Int): Vector2 = Vector2(x + dx, y + dy)
@@ -44,5 +46,7 @@ class Vector2(val x: Int, val y: Int) {
         return "{$x, $y}"
     }
 
-
 }
+
+fun Pair<Int, Int>.toVector() = Vector2(this.first, this.second)
+

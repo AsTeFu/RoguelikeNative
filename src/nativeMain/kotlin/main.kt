@@ -1,24 +1,34 @@
 import atf.bearlibterminal.*
 import game.rooms.builder.RoomBuilder
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import sceneManager.SceneManager
+import sceneManager.SceneNames
+import sceneManager.context.ConfigDto
 import sceneManager.context.Context
-import sceneManager.gameScene
-import sceneManager.menuScene
 import sceneManager.scenes.GameScene
 import sceneManager.scenes.MenuScene
 import terminal.Terminal
+import utility.Config
+import utility.reader.FileReader
 
 fun main() {
     val terminal = Terminal
 
+    val config = Json.decodeFromString<Config>(
+        FileReader.read("/home/astefu/Documents/Roguelike/src/nativeMain/resources/config.json")
+    )
+
     terminal.open()
-    terminal.setSize(150, 45).setCellSize(8, 16)
+    terminal.setSize(config.terminalSize.first, config.terminalSize.second).setCellSize(8, 16).setTitle(config.title)
     terminal.refresh()
 
     val context = Context()
+    context.addObject { ConfigDto(config) }
+
     val sceneManager = SceneManager(context)
-    sceneManager.addScene(menuScene, MenuScene(sceneManager, context))
-    sceneManager.addScene(gameScene, GameScene(sceneManager, context))
+    sceneManager.addScene(SceneNames.MENU, MenuScene(sceneManager, context))
+    sceneManager.addScene(SceneNames.GAME, GameScene(sceneManager, context))
 
 //    sceneManager.switchScene(menuScene)
     terminal.refresh()
@@ -32,7 +42,7 @@ fun main() {
             terminal.clear()
 
             if (terminal.peek() == TK_CLOSE) break
-            
+
             sceneManager.update()
 
 //            room.engine.update()
@@ -40,4 +50,6 @@ fun main() {
             terminal.read()
         }
     }
+
+    terminal.close()
 }

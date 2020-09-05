@@ -1,4 +1,6 @@
 package sceneManager
 
-val menuScene = "MENU"
-val gameScene = "GAME"
+enum class SceneNames(val title: String) {
+    MENU("MENU"),
+    GAME("GAME")
+}
