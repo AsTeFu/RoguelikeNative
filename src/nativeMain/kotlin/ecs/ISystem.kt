@@ -1,16 +1,49 @@
 package ecs
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
 abstract class ISystem(protected val engine: Engine) {
 
     protected val entities = arrayListOf<Entity>()
 
-    open fun preUpdate(entity: Entity) {}
-    open fun update(entity: Entity) {}
-    open fun postUpdate(entity: Entity) {}
+    open suspend fun preUpdate(entity: Entity) {}
+    open suspend fun update(entity: Entity) {}
+    open suspend fun postUpdate(entity: Entity) {}
 
-    fun preUpdateAll() = entities.forEach { preUpdate(it) }
-    fun updateAll() = entities.forEach { update(it) }
-    fun postUpdateAll() = entities.forEach { postUpdate(it) }
+    fun preUpdateAll() {
+//        println("\t---pre-update------------")
+        GlobalScope.launch {
+            entities.forEach {
+                preUpdate(it)
+//                println(it)
+            }
+        }
+//        println("\t---end-pre-update---------")
+    }
+
+    fun updateAll() {
+//        println("\t---update------------")
+        GlobalScope.launch {
+            entities.forEach {
+                update(it)
+//                println(it)
+            }
+        }
+//        println("\t---end-update---------")
+    }
+
+    fun postUpdateAll() {
+//        println("\t---post-update------------")
+        GlobalScope.launch {
+            entities.forEach {
+                postUpdate(it)
+//                println(it)
+            }
+        }
+//        println("\t---end-post-update---------")
+    }
 
     open fun updateComponents() {
         entities.clear()

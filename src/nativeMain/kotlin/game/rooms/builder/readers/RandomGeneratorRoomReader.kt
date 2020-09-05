@@ -1,12 +1,13 @@
-package game.rooms.builder
+package game.rooms.builder.readers
 
+import game.rooms.builder.RoomStructure
 import utility.Color
 import utility.Display
 import utility.Vector2
 import kotlin.random.Random
 
 
-class RoomReader : IRoomReader {
+class RandomGeneratorRoomReader : IRoomReader {
 
     override fun read(): RoomStructure {
         val roomStructure = RoomStructure()

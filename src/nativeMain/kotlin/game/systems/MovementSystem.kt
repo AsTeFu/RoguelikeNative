@@ -19,7 +19,7 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
 
     override fun filter(entity: Entity): Boolean = entity.hasComponent<Movement>() && entity.hasComponent<Transform>()
 
-    override fun preUpdate(entity: Entity) {
+    override suspend fun preUpdate(entity: Entity) {
         if (isCanMove(entity)) {
             entity.getComponent<Transform>()!!.position += entity.getComponent<Movement>()!!.direction
         }

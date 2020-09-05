@@ -12,10 +12,10 @@ class RenderSystem(engine: Engine) : ISystem(engine) {
 
     override fun filter(entity: Entity): Boolean = entity.hasComponent<RenderType>()
 
-    override fun update(entity: Entity) {
+    override suspend fun update(entity: Entity) {
     }
 
-    override fun postUpdate(entity: Entity) {
+    override suspend fun postUpdate(entity: Entity) {
         val renderSystem = entity.getComponent<RenderType>()?.currentSystem
 
         engine.entityManager.forEach {

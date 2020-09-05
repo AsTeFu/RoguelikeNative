@@ -22,7 +22,7 @@ class InputSystem(engine: Engine) : ISystem(engine) {
 
     override fun filter(entity: Entity): Boolean = entity.hasComponent<InputKeyboard>() and entity.hasComponent<Movement>()
 
-    override fun preUpdate(entity: Entity) {
+    override suspend fun preUpdate(entity: Entity) {
         val movement = entity.getComponent<Movement>()!!
 
         movement.direction = Vector2(0, 0)

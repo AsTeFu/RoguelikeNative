@@ -12,9 +12,9 @@ class CollisionSystem(engine: Engine) : ISystem(engine) {
     override fun filter(entity: Entity): Boolean = entity.hasComponent<Transform>() and
             entity.hasComponent<Collider>() and entity.hasComponent<WallComponent>()
 
-    override fun preUpdate(entity: Entity) = entity.getComponent<Collider>()!!.clear()
+    override suspend fun preUpdate(entity: Entity) = entity.getComponent<Collider>()!!.clear()
 
-    override fun update(entity: Entity) {
+    override suspend fun update(entity: Entity) {
         val transform = entity.getComponent<Transform>()!!
         val collider = entity.getComponent<Collider>()!!
 

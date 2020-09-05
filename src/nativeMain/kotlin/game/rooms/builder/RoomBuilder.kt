@@ -8,6 +8,9 @@ import game.rooms.Room
 import game.rooms.builder.creators.CoinCreator
 import game.rooms.builder.creators.ICreator
 import game.rooms.builder.creators.WallCreator
+import game.rooms.builder.readers.IRoomReader
+import game.rooms.builder.readers.RandomGeneratorRoomReader
+import game.rooms.builder.readers.SimpleFileRoomReader
 import game.systems.CollisionSystem
 import game.systems.InputSystem
 import game.systems.LightingSystem
@@ -21,7 +24,7 @@ import utility.Vector2
 
 class RoomBuilder() {
 
-    private val roomReader: IRoomReader = RoomReader()
+    private val roomReader: IRoomReader = SimpleFileRoomReader("/home/astefu/Documents/Roguelike/build/processedResources/native/main/rooms/simpleRooms/room1.rm")
 
     private val symbolToFunc = hashMapOf<Char, ICreator>()
 

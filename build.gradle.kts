@@ -3,12 +3,14 @@ import org.jetbrains.kotlin.cli.jvm.main
 plugins {
     kotlin("multiplatform") version "1.4.0"
 }
+
 group = "atf"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
+
 kotlin {
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -41,7 +43,11 @@ kotlin {
     }
 
     sourceSets {
-        val nativeMain by getting
+        val nativeMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+            }
+        }
         val nativeTest by getting
     }
 }

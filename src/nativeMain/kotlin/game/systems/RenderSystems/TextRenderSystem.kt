@@ -13,17 +13,14 @@ class TextRenderSystem : IRenderSystem {
         val lighting = entity.getComponent<Lighting>()!!
         val graphic = entity.getComponent<Graphic>()!!
 
-
         if (!lighting.observed) return
 
         val display = Display(
                 graphic.display.graphic,
-                if (lighting.lighted) graphic.display.color else Color("#777")
+                if (lighting.lighted) graphic.display.color else Color("#777777")
         )
 
-//        Terminal.currentLayer = graphic.layer
         Terminal.setLayer(graphic.layer)
-        //color
         Terminal.put(lighting.renderPosition, display.graphic)
     }
 
