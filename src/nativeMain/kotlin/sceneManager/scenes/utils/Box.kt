@@ -46,5 +46,6 @@ private fun verticalLine(
     display: Display = Display('|', Colors.WHITE.color)
 ) {
     Terminal.setColor(display.color)
+    // TODO сделать норм высоту
     repeat(len - 1) { Terminal.put(x, y + it - 1, display.graphic) }
 }

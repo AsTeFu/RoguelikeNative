@@ -97,9 +97,7 @@ class LightingSystem(engine: Engine) : ISystem(engine) {
 
     private fun pick(x: Int, y: Int): Boolean {
         if (points.count { Vector2(x, y) == it.key } == 0 || x < 0 || y < 0) return false
-        return points[Vector2(x, y)]?.getComponent<Lighting>()?.lighted!! && Terminal.pick(
-            Vector2(x, y),
-            4
-        ) != '#'.toInt()
+        return points[Vector2(x, y)]?.getComponent<Lighting>()?.lighted!!
+                && Terminal.pick(Vector2(x, y), 4) != '#'.toInt()
     }
 }

@@ -21,6 +21,7 @@ class TextRenderSystem : IRenderSystem {
         )
 
         Terminal.setLayer(graphic.layer)
+        Terminal.setColor(display.color)
         Terminal.put(lighting.renderPosition, display.graphic)
     }
 

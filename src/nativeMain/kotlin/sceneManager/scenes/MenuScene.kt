@@ -29,7 +29,13 @@ class MenuScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
     private val title = "Roguelike game"
 
     override fun start() {
-        this.render();
+        this.render()
+        Terminal.refresh()
+    }
+
+    override fun end() {
+        Terminal.clear()
+        Terminal.refresh()
     }
 
     override fun update () {
