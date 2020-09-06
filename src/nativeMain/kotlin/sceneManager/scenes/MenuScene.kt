@@ -41,7 +41,7 @@ class MenuScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
     override fun update () {
         if (Input.getKey(KeyCode.W)) listSelector.upward()
         if (Input.getKey(KeyCode.S)) listSelector.downward()
-        if (Input.getKey(KeyCode.Enter)) listSelector.currentElement.select()
+        if (Input.getKey(KeyCode.Enter)) listSelector.currentElement()
 
         this.render()
     }
@@ -69,5 +69,9 @@ class MenuScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
     private data class MenuItem(
         val name: String,
         val select: () -> Unit
-    )
+    ) {
+        operator fun invoke() {
+            select()
+        }
+    }
 }
