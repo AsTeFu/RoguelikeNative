@@ -12,8 +12,10 @@ class InventoryComponent(var capacity: Int) : IComponent {
         inventory.add(item)
     }
 
-    fun removeItem(index: Int) : InventoryItem? {
+    fun removeItem(index: Int): InventoryItem? {
         return inventory[index]
     }
+
+    fun forEach(action: (InventoryItem) -> Unit) = inventory.forEach(action)
 
 }

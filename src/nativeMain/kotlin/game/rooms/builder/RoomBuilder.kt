@@ -18,10 +18,7 @@ import game.inventory.generators.ArmorGenerator
 import game.inventory.generators.WeaponGenerator
 import game.inventory.outfit.armors.ArmorType
 import game.rooms.Room
-import game.rooms.builder.creators.CoinCreator
-import game.rooms.builder.creators.ICreator
-import game.rooms.builder.creators.MedKitCreator
-import game.rooms.builder.creators.WallCreator
+import game.rooms.builder.creators.*
 import game.rooms.builder.readers.IRoomReader
 import game.rooms.builder.readers.SimpleFileRoomReader
 import game.systems.*
@@ -46,6 +43,7 @@ class RoomBuilder() {
         symbolToFunc['$'] = CoinCreator()
         symbolToFunc['#'] = WallCreator()
         symbolToFunc['+'] = MedKitCreator()
+        symbolToFunc['X'] = ChestCreator()
     }
 
     fun build(): Room {
@@ -114,6 +112,7 @@ class RoomBuilder() {
         room.engine.systemManager.addSystem { e -> TriggerSystem(e) }
         room.engine.systemManager.addSystem { e -> MovementSystem(e) }
         room.engine.systemManager.addSystem { e -> PickupSystem(e) }
+        room.engine.systemManager.addSystem { e -> ChestOpenSystem(e) }
         room.engine.systemManager.addSystem { e -> CameraSystem(e) }
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }
