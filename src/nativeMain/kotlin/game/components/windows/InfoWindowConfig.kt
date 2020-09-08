@@ -2,6 +2,8 @@ package game.components.windows
 
 import ecs.Entity
 import game.components.inventoryComponent.WeaponComponent
+import game.components.playerComponents.HealthComponent
+import game.components.playerComponents.WalletComponent
 import sceneManager.scenes.utils.drawBox
 import terminal.Terminal
 import utility.Vector2
@@ -20,6 +22,14 @@ class InfoWindowConfig(
         Terminal.crop(position, size)
         drawBox(position, size, title)
 
-        val drawPosition = position + Vector2(5, 5)
+        var drawPosition = position + Vector2(5, 5)
         val weapon = player.getComponent<WeaponComponent>()!!.weapon
+
+        val wallet = player.getComponent<WalletComponent>()!!
+        Terminal.print(drawPosition, "Money: ${wallet.money}")
+        drawPosition += Vector2(0, 2)
+
+        val health = player.getComponent<HealthComponent>()!!
+        Terminal.print(drawPosition, "Health: ${health.health}")
+        drawPosition += Vector2(0, 2)
     })

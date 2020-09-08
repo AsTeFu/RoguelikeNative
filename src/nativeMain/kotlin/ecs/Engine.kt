@@ -7,4 +7,9 @@ class Engine {
 
     fun update() = systemManager.update()
 
+    fun deleteEntity(entity: Entity) {
+        entityManager.deleteEntity(entity)
+        systemManager.deleteEntity(entity)
+    }
+
 }

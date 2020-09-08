@@ -21,6 +21,12 @@ class SystemManager(private val engine: Engine) {
         systems.forEach { it.updateComponents() }
     }
 
+    fun deleteEntity(entity: Entity) {
+        systems.forEach {
+            it.deleteEntity(entity)
+        }
+    }
+
     fun update() {
 
         val startTime = clock()

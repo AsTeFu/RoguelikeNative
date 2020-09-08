@@ -8,6 +8,8 @@ import game.components.baseComponent.*
 import game.components.inventoryComponent.ArmorComponent
 import game.components.inventoryComponent.InventoryComponent
 import game.components.inventoryComponent.WeaponComponent
+import game.components.playerComponents.HealthComponent
+import game.components.playerComponents.WalletComponent
 import game.components.windows.GameWindowConfig
 import game.components.windows.InfoWindowConfig
 import game.components.windows.LoggerWindowConfig
@@ -18,6 +20,7 @@ import game.inventory.outfit.armors.ArmorType
 import game.rooms.Room
 import game.rooms.builder.creators.CoinCreator
 import game.rooms.builder.creators.ICreator
+import game.rooms.builder.creators.MedKitCreator
 import game.rooms.builder.creators.WallCreator
 import game.rooms.builder.readers.IRoomReader
 import game.rooms.builder.readers.SimpleFileRoomReader
@@ -42,6 +45,7 @@ class RoomBuilder() {
     init {
         symbolToFunc['$'] = CoinCreator()
         symbolToFunc['#'] = WallCreator()
+        symbolToFunc['+'] = MedKitCreator()
     }
 
     fun build(): Room {
@@ -56,6 +60,8 @@ class RoomBuilder() {
         player.addComponent { Collider() }
         player.addComponent { Lighting(Vector2(10, 10)) }
         player.addComponent { InputKeyboard() }
+        player.addComponent { HealthComponent(100) }
+        player.addComponent { WalletComponent(300) }
         player.addComponent { InventoryComponent(5) }
         player.addComponent { WeaponComponent(WeaponGenerator().generateWeapon()) }
         player.addComponent {
@@ -105,7 +111,9 @@ class RoomBuilder() {
 
         room.engine.systemManager.addSystem { e -> InputSystem(e) }
         room.engine.systemManager.addSystem { e -> CollisionSystem(e) }
+        room.engine.systemManager.addSystem { e -> TriggerSystem(e) }
         room.engine.systemManager.addSystem { e -> MovementSystem(e) }
+        room.engine.systemManager.addSystem { e -> PickupSystem(e) }
         room.engine.systemManager.addSystem { e -> CameraSystem(e) }
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }

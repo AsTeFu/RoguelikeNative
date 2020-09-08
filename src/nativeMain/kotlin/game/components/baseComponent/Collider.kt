@@ -11,4 +11,6 @@ class Collider : IComponent {
 
     fun clear() = colls.clear()
 
+    operator fun contains(entity: Entity) = colls.any { it.id == entity.id }
+
 }

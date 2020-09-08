@@ -26,4 +26,11 @@ class EntityManager {
 
     fun getByTag(tag: String): List<Entity>? = entitiesByTag[tag]?.toList()
 
+    fun deleteEntity(entity: Entity) {
+        val removedEntity = entities.remove(entity.id) ?: return
+        entitiesByTag.forEach {
+            it.value.remove(removedEntity)
+        }
+    }
+
 }

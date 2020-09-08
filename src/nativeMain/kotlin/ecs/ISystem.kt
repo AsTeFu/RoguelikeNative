@@ -12,6 +12,10 @@ abstract class ISystem(protected val engine: Engine) {
     open fun update(entity: Entity) {}
     open fun postUpdate(entity: Entity) {}
 
+    fun deleteEntity(entity: Entity) {
+        entities.remove(entity)
+    }
+
     fun preUpdateAll() {
 //        println("\t---pre-update------------")
 //        GlobalScope.launch {
