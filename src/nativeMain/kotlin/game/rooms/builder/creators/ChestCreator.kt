@@ -2,14 +2,10 @@ package game.rooms.builder.creators
 
 import ecs.Engine
 import ecs.Entity
-import game.components.baseComponent.Collider
-import game.components.baseComponent.Graphic
-import game.components.baseComponent.Lighting
-import game.components.baseComponent.Transform
+import game.components.baseComponent.*
 import game.components.inventoryComponent.ChestComponent
 import game.components.inventoryComponent.InventoryComponent
 import game.inventory.generators.ArmorGenerator
-import game.inventory.generators.ItemGenerator
 import game.inventory.generators.WeaponGenerator
 import utility.Display
 import utility.Vector2

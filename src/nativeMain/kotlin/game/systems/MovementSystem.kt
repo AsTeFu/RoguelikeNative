@@ -17,7 +17,7 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
         walls = engine.entityManager.getByTag("walls")?.first()?.getComponent()!!
     }
 
-    override fun filter(entity: Entity): Boolean = entity.hasComponent<Movement>() && entity.hasComponent<Transform>()
+    override fun filter(entity: Entity) = entity.hasComponent<Movement>() && entity.hasComponent<Transform>()
 
     override fun preUpdate(entity: Entity) {
         if (isCanMove(entity)) {
@@ -32,7 +32,7 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
         val movement = entity.getComponent<Movement>()!!
 
         val posEntity = transform.position + movement.direction
-        if (walls.findWallAtPoint(posEntity)) return false
+        if (walls.findWallAtPoint(posEntity) || movement.direction.isZero()) return false
 
         var canMove = true
 
@@ -40,11 +40,11 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
             if (!it.hasComponent<Collider>() || it.id == entity.id) return@forEach
 
             if (transform.position + movement.direction == it.getComponent<Transform>()?.position) {
-                canMove = true
+                canMove = false
                 return@forEach
             }
         }
 
-        return canMove and !movement.direction.isZero()
+        return canMove //and !movement.direction.isZero()
     }
 }
