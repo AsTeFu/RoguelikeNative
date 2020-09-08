@@ -69,4 +69,8 @@ object Terminal {
 
     fun setColor(color: String) = terminal_color(Color(color).toInt().convert())
 
+    fun clearArea(position: Vector2, size: Vector2) = terminal_clear_area(position.x, position.y, size.x, size.y)
+
+    fun crop(position: Vector2, size: Vector2) = terminal_crop(position.x, position.y, size.x, size.y)
+
 }

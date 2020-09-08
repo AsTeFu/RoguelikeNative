@@ -6,7 +6,7 @@ import utility.Colors
 import utility.Display
 import utility.Vector2
 
-fun box(position: Vector2, size: Vector2, title: String) {
+fun drawHeader(position: Vector2, size: Vector2, title: String) {
     Terminal.print(
         position.x + size.x / 2 - title.length / 2,
         position.y - 1 + size.y / 2,
@@ -16,9 +16,15 @@ fun box(position: Vector2, size: Vector2, title: String) {
     drawBorder(position, size)
 }
 
+fun drawBox(position: Vector2, size: Vector2, title: String) {
+    drawBorder(position, size)
+    val titlePosition = position + Vector2(5, 0)
+    Terminal.print(titlePosition, title)
+}
+
 private fun drawBorder(position: Vector2, size: Vector2) {
-    horizontalBorder(position, size)
     verticalBorder(position, size)
+    horizontalBorder(position, size)
 }
 
 private fun horizontalBorder(position: Vector2, size: Vector2) {
@@ -47,5 +53,5 @@ private fun verticalLine(
 ) {
     Terminal.setColor(display.color)
     // TODO сделать норм высоту
-    repeat(len - 1) { Terminal.put(x, y + it - 1, display.graphic) }
+    repeat(len - 1) { Terminal.put(x, y + it, display.graphic) }
 }

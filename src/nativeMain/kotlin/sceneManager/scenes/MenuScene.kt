@@ -1,7 +1,5 @@
 package sceneManager.scenes
 
-import atf.bearlibterminal.color_from_name
-import atf.bearlibterminal.terminal_color
 import sceneManager.IScene
 import sceneManager.SceneManager
 import sceneManager.SceneNames
@@ -9,7 +7,7 @@ import sceneManager.context.ConfigDto
 import sceneManager.context.Context
 import sceneManager.scenes.utils.Cursor
 import sceneManager.scenes.utils.ListSelector
-import sceneManager.scenes.utils.box
+import sceneManager.scenes.utils.drawHeader
 import terminal.Terminal
 import utility.*
 
@@ -47,7 +45,7 @@ class MenuScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
     }
 
     private fun render() {
-        box(Vector2(5, 5), Vector2(size.x - 10, 10), title)
+        drawHeader(Vector2(5, 5), Vector2(size.x - 10, 10), title)
 
         var x = size.x / 2 - 7
         var y = size.y / 2 - menuList.size * 2

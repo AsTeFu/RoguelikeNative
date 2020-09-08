@@ -14,7 +14,7 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
 
     override fun updateComponents() {
         super.updateComponents()
-        walls = engine.entityManager.getByTag("walls")?.first()?.getComponent<WallsComponent>()!!
+        walls = engine.entityManager.getByTag("walls")?.first()?.getComponent()!!
     }
 
     override fun filter(entity: Entity): Boolean = entity.hasComponent<Movement>() && entity.hasComponent<Transform>()

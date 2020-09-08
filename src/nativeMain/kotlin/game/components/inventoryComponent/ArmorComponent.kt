@@ -4,9 +4,7 @@ import ecs.IComponent
 import game.inventory.outfit.armors.Armor
 import game.inventory.outfit.armors.ArmorType
 
-class ArmorComponent : IComponent {
-
-    private var equipments = mutableMapOf<ArmorType, Armor>()
+class ArmorComponent(private var equipments: MutableMap<ArmorType, Armor>) : IComponent {
 
     fun putOn(armor: Armor) : Armor? {
         if (armor.type in equipments) {

@@ -1,7 +1,7 @@
 package game.components
 
 import ecs.IComponent
-import game.systems.RenderSystems.IRenderSystem
+import game.systems.render.IRenderSystem
 
 
 class RenderType(private vararg val renderSystems: IRenderSystem) : IComponent {

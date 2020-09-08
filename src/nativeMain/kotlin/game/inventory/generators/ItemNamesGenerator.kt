@@ -13,8 +13,9 @@ class ItemNamesGenerator(fileName: String) {
     }
 
     fun getRandomName(rarity: Rarity) : String {
-        val rnd = Random.nextInt(names[rarity.ordinal].size)
-        return names[rarity.ordinal][rnd]
+//        val rnd = Random.nextInt(names[rarity.ordinal].size)
+//        return names[rarity.ordinal][rnd]
+        return "NAME"
     }
 
 }

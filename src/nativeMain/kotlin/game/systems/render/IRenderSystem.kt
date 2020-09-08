@@ -1,4 +1,4 @@
-package game.systems.RenderSystems
+package game.systems.render
 
 import ecs.Entity
 

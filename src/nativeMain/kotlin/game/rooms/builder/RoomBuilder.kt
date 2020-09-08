@@ -4,19 +4,25 @@ import game.components.InputKeyboard
 import game.components.RenderType
 import game.components.WallsComponent
 import game.components.baseComponent.*
+import game.components.inventoryComponent.ArmorComponent
+import game.components.inventoryComponent.InventoryComponent
+import game.components.inventoryComponent.WeaponComponent
+import game.components.windows.WindowComponent
+import game.inventory.generators.ArmorGenerator
+import game.inventory.generators.WeaponGenerator
+import game.inventory.outfit.armors.ArmorType
 import game.rooms.Room
 import game.rooms.builder.creators.CoinCreator
 import game.rooms.builder.creators.ICreator
 import game.rooms.builder.creators.WallCreator
 import game.rooms.builder.readers.IRoomReader
-import game.rooms.builder.readers.RandomGeneratorRoomReader
 import game.rooms.builder.readers.SimpleFileRoomReader
-import game.systems.CollisionSystem
-import game.systems.InputSystem
-import game.systems.LightingSystem
-import game.systems.MovementSystem
-import game.systems.RenderSystems.RenderSystem
-import game.systems.RenderSystems.TextRenderSystem
+import game.systems.*
+import game.systems.render.RenderSystem
+import game.systems.render.TextRenderSystem
+import game.systems.windows.WindowSystem
+import sceneManager.scenes.utils.drawBox
+import terminal.Terminal
 import utility.Color
 import utility.Display
 import utility.Vector2
@@ -24,7 +30,8 @@ import utility.Vector2
 
 class RoomBuilder() {
 
-    private val roomReader: IRoomReader = SimpleFileRoomReader("/home/astefu/Documents/Roguelike/build/processedResources/native/main/rooms/simpleRooms/room1.rm")
+    private val roomReader: IRoomReader =
+        SimpleFileRoomReader("/home/astefu/Documents/Roguelike/build/processedResources/native/main/rooms/simpleRooms/room1.rm")
 
     private val symbolToFunc = hashMapOf<Char, ICreator>()
 
@@ -45,6 +52,17 @@ class RoomBuilder() {
         player.addComponent { Collider() }
         player.addComponent { Lighting(Vector2(10, 10)) }
         player.addComponent { InputKeyboard() }
+        player.addComponent { InventoryComponent(5) }
+        player.addComponent { WeaponComponent(WeaponGenerator().generateWeapon()) }
+        player.addComponent {
+            ArmorComponent(
+                mutableMapOf(
+                    ArmorType.Helmet to ArmorGenerator().generateArmor(ArmorType.Helmet),
+                    ArmorType.Armour to ArmorGenerator().generateArmor(ArmorType.Armour),
+                    ArmorType.Boots to ArmorGenerator().generateArmor(ArmorType.Boots),
+                )
+            )
+        }
 
         val render = room.engine.entityManager.createEntity("renderSystem")
         render.addComponent { RenderType(TextRenderSystem()) }
@@ -60,11 +78,41 @@ class RoomBuilder() {
         }
 
 
+        val gameWindow = room.engine.entityManager.createEntity("gameWindow")
+        gameWindow.addComponent {
+            WindowComponent(
+                preUpdate = {
+                    Terminal.setLayer(20)
+                    Terminal.crop(Vector2(0, 0), Vector2(100, 45))
+                },
+                postUpdate = {
+                    Terminal.setLayer(20)
+                    drawBox(Vector2(0, 0), Vector2(100, 45), "GAME")
+                    Terminal.refresh()
+                })
+        }
+
+        val infoWindow = room.engine.entityManager.createEntity("infoWindow")
+        infoWindow.addComponent {
+            WindowComponent({
+                Terminal.setLayer(21)
+
+                Terminal.clearArea(Vector2(100, 0), Vector2(50, 45))
+                Terminal.crop(Vector2(100, 0), Vector2(50, 45))
+                drawBox(Vector2(100, 0), Vector2(50, 45), "STAT")
+
+                Terminal.print(120, 15, "TEXT")
+                Terminal.refresh()
+            })
+        }
+
         room.engine.systemManager.addSystem { e -> InputSystem(e) }
         room.engine.systemManager.addSystem { e -> CollisionSystem(e) }
         room.engine.systemManager.addSystem { e -> MovementSystem(e) }
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }
+        room.engine.systemManager.addSystem { e -> StepsSystem(e) }
+        room.engine.systemManager.addSystem { e -> WindowSystem(e) }
 
         room.engine.systemManager.setComponents()
 
