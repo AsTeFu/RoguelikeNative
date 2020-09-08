@@ -37,6 +37,7 @@ class MenuScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
     }
 
     override fun update () {
+        Terminal.clear()
         if (Input.getKey(KeyCode.W)) listSelector.upward()
         if (Input.getKey(KeyCode.S)) listSelector.downward()
         if (Input.getKey(KeyCode.Enter)) listSelector.currentElement()

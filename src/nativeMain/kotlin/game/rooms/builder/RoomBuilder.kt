@@ -25,6 +25,7 @@ import game.systems.*
 import game.systems.render.RenderSystem
 import game.systems.render.TextRenderSystem
 import game.systems.windows.WindowSystem
+import sceneManager.SceneManager
 import sceneManager.scenes.utils.drawBox
 import terminal.Terminal
 import utility.Color
@@ -32,7 +33,7 @@ import utility.Display
 import utility.Vector2
 
 
-class RoomBuilder() {
+class RoomBuilder(private val sceneManager: SceneManager) {
 
     private val roomReader: IRoomReader =
         SimpleFileRoomReader("/home/astefu/Documents/Roguelike/build/processedResources/native/main/rooms/simpleRooms/room1.rm")
@@ -112,12 +113,12 @@ class RoomBuilder() {
         room.engine.systemManager.addSystem { e -> TriggerSystem(e) }
         room.engine.systemManager.addSystem { e -> MovementSystem(e) }
         room.engine.systemManager.addSystem { e -> PickupSystem(e) }
-        room.engine.systemManager.addSystem { e -> ChestOpenSystem(e) }
         room.engine.systemManager.addSystem { e -> CameraSystem(e) }
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }
         room.engine.systemManager.addSystem { e -> StepsSystem(e) }
         room.engine.systemManager.addSystem { e -> WindowSystem(e) }
+        room.engine.systemManager.addSystem { e -> ChestOpenSystem(e, sceneManager) }
 
         room.engine.systemManager.setComponents()
 

@@ -5,6 +5,7 @@ import sceneManager.SceneManager
 import sceneManager.SceneNames
 import sceneManager.context.ConfigDto
 import sceneManager.context.Context
+import sceneManager.scenes.ChestScene
 import sceneManager.scenes.GameScene
 import sceneManager.scenes.MenuScene
 import terminal.Terminal
@@ -28,6 +29,7 @@ fun main() {
     val sceneManager = SceneManager(context)
     sceneManager.addScene(SceneNames.MENU, MenuScene(sceneManager, context))
     sceneManager.addScene(SceneNames.GAME, GameScene(sceneManager, context))
+    sceneManager.addScene(SceneNames.CHEST, ChestScene(sceneManager, context))
 
 //    sceneManager.switchScene(menuScene)
     terminal.refresh()
@@ -38,7 +40,7 @@ fun main() {
 
     while (true) {
         if (terminal.hasInput()) {
-            terminal.clear()
+//            terminal.clear()
 
             if (terminal.peek() == TK_CLOSE) break
 

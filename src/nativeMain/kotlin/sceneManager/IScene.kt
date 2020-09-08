@@ -3,8 +3,8 @@ package sceneManager
 import sceneManager.context.Context
 
 open class IScene(
-    private val sceneManager: SceneManager,
-    private val context: Context
+    protected val sceneManager: SceneManager,
+    protected val context: Context
 ) {
 
     open fun start() {}

@@ -13,17 +13,18 @@ class GameScene(sceneManager: SceneManager, context: Context) : IScene(sceneMana
 
     override fun start() {
         Terminal.clear()
-        room = RoomBuilder().build()
+        room = RoomBuilder(sceneManager).build()
         room.engine.update()
         Terminal.refresh()
     }
 
     override fun end() {
-        Terminal.clear()
-        Terminal.refresh()
+//        Terminal.clear()
+//        Terminal.refresh()
     }
 
     override fun update() {
+        Terminal.clear()
         room.engine.update()
     }
 
