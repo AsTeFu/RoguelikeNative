@@ -4,8 +4,6 @@ import ecs.Engine
 import ecs.Entity
 import ecs.ISystem
 import game.components.windows.WindowComponent
-import terminal.Terminal
-import utility.Vector2
 
 class WindowSystem(engine: Engine) : ISystem(engine) {
 
@@ -13,14 +11,14 @@ class WindowSystem(engine: Engine) : ISystem(engine) {
 
     override fun preUpdate(entity: Entity) {
         val window = entity.getComponent<WindowComponent>()!!
-        window?.let { it.preUpdate() }
+        window?.let { it.config.preUpdate() }
 
 
     }
 
     override fun postUpdate(entity: Entity) {
         val window = entity.getComponent<WindowComponent>()
-        window?.let { it.postUpdate() }
+        window?.let { it.config.postUpdate() }
     }
 
 }

@@ -7,6 +7,9 @@ import game.components.baseComponent.*
 import game.components.inventoryComponent.ArmorComponent
 import game.components.inventoryComponent.InventoryComponent
 import game.components.inventoryComponent.WeaponComponent
+import game.components.windows.GameWindowConfig
+import game.components.windows.InfoWindowConfig
+import game.components.windows.LoggerWindowConfig
 import game.components.windows.WindowComponent
 import game.inventory.generators.ArmorGenerator
 import game.inventory.generators.WeaponGenerator
@@ -80,30 +83,17 @@ class RoomBuilder() {
 
         val gameWindow = room.engine.entityManager.createEntity("gameWindow")
         gameWindow.addComponent {
-            WindowComponent(
-                preUpdate = {
-                    Terminal.setLayer(20)
-                    Terminal.crop(Vector2(0, 0), Vector2(100, 45))
-                },
-                postUpdate = {
-                    Terminal.setLayer(20)
-                    drawBox(Vector2(0, 0), Vector2(100, 45), "GAME")
-                    Terminal.refresh()
-                })
+            WindowComponent(GameWindowConfig(20, Vector2(0, 0), Vector2(100, 31), "GAME"))
         }
 
         val infoWindow = room.engine.entityManager.createEntity("infoWindow")
         infoWindow.addComponent {
-            WindowComponent({
-                Terminal.setLayer(21)
+            WindowComponent(InfoWindowConfig(21, Vector2(100, 0), Vector2(50, 45), "STAT"))
+        }
 
-                Terminal.clearArea(Vector2(100, 0), Vector2(50, 45))
-                Terminal.crop(Vector2(100, 0), Vector2(50, 45))
-                drawBox(Vector2(100, 0), Vector2(50, 45), "STAT")
-
-                Terminal.print(120, 15, "TEXT")
-                Terminal.refresh()
-            })
+        val loggerWindow = room.engine.entityManager.createEntity("loggerWindow")
+        loggerWindow.addComponent {
+            WindowComponent(LoggerWindowConfig(22, Vector2(0, 30), Vector2(100, 15), "LOGGER"))
         }
 
         room.engine.systemManager.addSystem { e -> InputSystem(e) }
