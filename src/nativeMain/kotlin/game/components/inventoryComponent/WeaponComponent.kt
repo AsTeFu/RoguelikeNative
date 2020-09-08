@@ -5,7 +5,8 @@ import game.inventory.outfit.Weapon
 
 class WeaponComponent(startWeapon: Weapon) : IComponent {
 
-    private var weapon: Weapon = startWeapon
+    var weapon: Weapon = startWeapon
+        private set
 
     fun replace(weapon: Weapon): Weapon {
         val oldWeapon = this.weapon

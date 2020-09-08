@@ -88,7 +88,7 @@ class RoomBuilder() {
 
         val infoWindow = room.engine.entityManager.createEntity("infoWindow")
         infoWindow.addComponent {
-            WindowComponent(InfoWindowConfig(21, Vector2(100, 0), Vector2(50, 45), "STAT"))
+            WindowComponent(InfoWindowConfig(21, Vector2(100, 0), Vector2(50, 45), "STAT", player))
         }
 
         val loggerWindow = room.engine.entityManager.createEntity("loggerWindow")

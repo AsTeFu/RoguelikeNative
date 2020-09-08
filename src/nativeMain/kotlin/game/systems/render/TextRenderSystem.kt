@@ -6,6 +6,7 @@ import game.components.baseComponent.Lighting
 import terminal.Terminal
 import utility.Color
 import utility.Display
+import utility.Vector2
 
 class TextRenderSystem : IRenderSystem {
 
@@ -22,7 +23,7 @@ class TextRenderSystem : IRenderSystem {
 
         Terminal.setLayer(graphic.layer)
         Terminal.setColor(display.color)
-        Terminal.put(lighting.renderPosition, display.graphic)
+        Terminal.put(lighting.renderPosition + Vector2(10, 5), display.graphic)
     }
 
 }
