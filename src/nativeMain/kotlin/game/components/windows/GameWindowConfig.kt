@@ -11,6 +11,11 @@ class GameWindowConfig(
     title: String,
 ) : WindowConfig(
     preUpdate = {
+        repeat(10) {
+            Terminal.setLayer(it)
+            Terminal.crop(position, size)
+        }
+
         Terminal.setLayer(layer)
         Terminal.crop(position, size)
     },

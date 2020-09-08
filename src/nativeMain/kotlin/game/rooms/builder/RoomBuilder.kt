@@ -1,5 +1,6 @@
 package game.rooms.builder
 
+import game.components.CameraComponent
 import game.components.InputKeyboard
 import game.components.RenderType
 import game.components.WallsComponent
@@ -67,8 +68,14 @@ class RoomBuilder() {
             )
         }
 
+        val camera = room.engine.entityManager.createEntity("camera")
+        camera.addComponent {
+            CameraComponent(Vector2(150 * 60 / 200, 45 * 70 / 200), Vector2(4, 2))
+        }
+        camera.addComponent { Transform(player.getComponent<Transform>()!!.position) }
+
         val render = room.engine.entityManager.createEntity("renderSystem")
-        render.addComponent { RenderType(TextRenderSystem()) }
+        render.addComponent { RenderType(TextRenderSystem(camera.getComponent()!!)) }
 
         val walls = room.engine.entityManager.createEntity("walls")
         walls.addComponent { WallsComponent() }
@@ -99,6 +106,7 @@ class RoomBuilder() {
         room.engine.systemManager.addSystem { e -> InputSystem(e) }
         room.engine.systemManager.addSystem { e -> CollisionSystem(e) }
         room.engine.systemManager.addSystem { e -> MovementSystem(e) }
+        room.engine.systemManager.addSystem { e -> CameraSystem(e) }
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }
         room.engine.systemManager.addSystem { e -> StepsSystem(e) }
