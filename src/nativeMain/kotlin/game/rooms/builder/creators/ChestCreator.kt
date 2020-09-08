@@ -5,6 +5,9 @@ import ecs.Entity
 import game.components.baseComponent.*
 import game.components.inventoryComponent.ChestComponent
 import game.components.inventoryComponent.InventoryComponent
+import game.inventory.FirstAidKit
+import game.inventory.Food
+import game.inventory.Wallet
 import game.inventory.generators.ArmorGenerator
 import game.inventory.generators.WeaponGenerator
 import utility.Display
@@ -25,6 +28,9 @@ class ChestCreator : ICreator() {
         inventory.addItem(WeaponGenerator().generateWeapon())
         inventory.addItem(ArmorGenerator().generateArmor())
         inventory.addItem(ArmorGenerator().generateArmor())
+        inventory.addItem(Wallet(500))
+        inventory.addItem(FirstAidKit(500, 100))
+        inventory.addItem(Food(100, 200))
         chest.addComponent { inventory }
 
         return chest

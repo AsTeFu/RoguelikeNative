@@ -1,5 +1,6 @@
 package game.inventory
 
+import terminal.Terminal
 import utility.Color
 import utility.Colors
 
@@ -11,5 +12,5 @@ enum class Rarity(val color: Color, val chance: Int) {
     Epic(Colors.WHITE.color, list[2]),
     Legendary(Colors.WHITE.color, list[3]),
     Mythical(Colors.WHITE.color, list[4]),
-    Sublime(Colors.WHITE.color, list[5]),
+    Sublime(Colors.WHITE.color, list[5]);
 }

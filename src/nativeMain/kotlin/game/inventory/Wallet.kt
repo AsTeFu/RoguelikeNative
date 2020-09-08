@@ -1,6 +1,7 @@
 package game.inventory
 
-import kotlin.random.Random
+class Wallet(cost: Int) : InventoryItem("Wallet", Rarity.Usual, cost) {
 
-class Wallet(cost: Int) : InventoryItem("Coins", Rarity.Usual, cost) {
+    override fun toString() = "[color=yellow]$title:[/color] $cost"
+
 }

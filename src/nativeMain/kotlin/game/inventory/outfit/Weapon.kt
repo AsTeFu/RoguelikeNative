@@ -13,4 +13,6 @@ class Weapon(
     private val criticalChance: Int,
 ) : InventoryItem(title, rarity, cost) {
 
+    override fun toString() = "Weapon: [color=white]$title[/color] DMG: $damage, CR: $criticalChance"
+
 }

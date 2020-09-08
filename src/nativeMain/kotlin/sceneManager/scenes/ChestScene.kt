@@ -70,7 +70,7 @@ class ChestScene(sceneManager: SceneManager, context: Context) : IScene(sceneMan
                 Terminal.setColor(Colors.RED)
             } else Terminal.setColor(Colors.WHITE)
 
-            Terminal.print(drawPosition.x, drawPosition.y + index * 2, "ITEM")
+            Terminal.print(drawPosition.x, drawPosition.y + index * 2, item.toString())
         }
 
         Terminal.refresh()

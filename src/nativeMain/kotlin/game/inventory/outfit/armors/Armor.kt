@@ -14,4 +14,6 @@ class Armor(
     private val special : Special,
 ) : InventoryItem(title, rarity, cost) {
 
+    override fun toString() = "${type.name}: [color=white]$title[/color] PR: $protect, DG: $dodge"
+
 }
