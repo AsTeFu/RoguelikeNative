@@ -8,7 +8,9 @@ import game.components.baseComponent.*
 import game.components.inventoryComponent.ArmorComponent
 import game.components.inventoryComponent.InventoryComponent
 import game.components.inventoryComponent.WeaponComponent
+import game.components.playerComponents.FoodComponent
 import game.components.playerComponents.HealthComponent
+import game.components.playerComponents.StepsComponent
 import game.components.playerComponents.WalletComponent
 import game.components.windows.GameWindowConfig
 import game.components.windows.InfoWindowConfig
@@ -45,6 +47,7 @@ class RoomBuilder(private val sceneManager: SceneManager) {
         symbolToFunc['#'] = WallCreator()
         symbolToFunc['+'] = MedKitCreator()
         symbolToFunc['X'] = ChestCreator()
+        symbolToFunc['*'] = FoodCreator()
     }
 
     fun build(): Room {
@@ -60,6 +63,8 @@ class RoomBuilder(private val sceneManager: SceneManager) {
         player.addComponent { Lighting(Vector2(10, 10)) }
         player.addComponent { InputKeyboard() }
         player.addComponent { HealthComponent(100) }
+        player.addComponent { FoodComponent(100) }
+        player.addComponent { StepsComponent() }
         player.addComponent { WalletComponent(300) }
         player.addComponent { InventoryComponent(5) }
         player.addComponent { WeaponComponent(WeaponGenerator().generateWeapon()) }
@@ -117,6 +122,7 @@ class RoomBuilder(private val sceneManager: SceneManager) {
         room.engine.systemManager.addSystem { e -> LightingSystem(e) }
         room.engine.systemManager.addSystem { e -> RenderSystem(e) }
         room.engine.systemManager.addSystem { e -> StepsSystem(e) }
+        room.engine.systemManager.addSystem { e -> StarvationSystem(e) }
         room.engine.systemManager.addSystem { e -> WindowSystem(e) }
         room.engine.systemManager.addSystem { e -> ChestOpenSystem(e, sceneManager) }
 

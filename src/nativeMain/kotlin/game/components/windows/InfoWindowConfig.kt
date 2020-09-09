@@ -3,6 +3,7 @@ package game.components.windows
 import ecs.Entity
 import game.components.inventoryComponent.WeaponComponent
 import game.components.playerComponents.HealthComponent
+import game.components.playerComponents.StepsComponent
 import game.components.playerComponents.WalletComponent
 import sceneManager.scenes.utils.drawBox
 import terminal.Terminal
@@ -31,5 +32,9 @@ class InfoWindowConfig(
 
         val health = player.getComponent<HealthComponent>()!!
         Terminal.print(drawPosition, "Health: ${health.health}")
+        drawPosition += Vector2(0, 2)
+
+        val steps = player.getComponent<StepsComponent>()!!
+        Terminal.print(drawPosition, "Steps: ${steps.steps}")
         drawPosition += Vector2(0, 2)
     })

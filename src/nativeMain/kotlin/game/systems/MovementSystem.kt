@@ -7,6 +7,7 @@ import game.components.WallsComponent
 import game.components.baseComponent.Collider
 import game.components.baseComponent.Movement
 import game.components.baseComponent.Transform
+import utility.Vector2
 
 class MovementSystem(engine: Engine) : ISystem(engine) {
 
@@ -32,7 +33,10 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
         val movement = entity.getComponent<Movement>()!!
 
         val posEntity = transform.position + movement.direction
-        if (walls.findWallAtPoint(posEntity) || movement.direction.isZero()) return false
+        if (walls.findWallAtPoint(posEntity) || movement.direction.isZero()) {
+            movement.direction = Vector2(0, 0)
+            return false
+        }
 
         var canMove = true
 
@@ -41,6 +45,7 @@ class MovementSystem(engine: Engine) : ISystem(engine) {
 
             if (transform.position + movement.direction == it.getComponent<Transform>()?.position) {
                 canMove = false
+                movement.direction = Vector2(0, 0)
                 return@forEach
             }
         }
