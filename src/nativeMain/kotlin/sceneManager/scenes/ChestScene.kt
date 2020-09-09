@@ -36,7 +36,7 @@ class ChestScene(sceneManager: SceneManager, context: Context) : IScene(sceneMan
 //            Terminal.crop(position, size)
         }
 
-        player = context.getObject<PlayerDto>().player
+        player = context.getObject<PlayerDto>().entity
         playerInventory = player.getComponent()!!
         chest = context.getObject<ChestDto>().chest.getComponent()!!
 

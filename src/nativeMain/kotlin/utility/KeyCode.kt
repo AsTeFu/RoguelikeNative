@@ -15,4 +15,5 @@ enum class KeyCode(val code: Int) {
     DownArrow(TK_DOWN),
     D(TK_D),
     A(TK_A),
+    I(TK_I),
 }

@@ -125,6 +125,7 @@ class RoomBuilder(private val sceneManager: SceneManager) {
         room.engine.systemManager.addSystem { e -> StarvationSystem(e) }
         room.engine.systemManager.addSystem { e -> WindowSystem(e) }
         room.engine.systemManager.addSystem { e -> ChestOpenSystem(e, sceneManager) }
+        room.engine.systemManager.addSystem { e -> InventoryOpenSystem(e, sceneManager) }
 
         room.engine.systemManager.setComponents()
 

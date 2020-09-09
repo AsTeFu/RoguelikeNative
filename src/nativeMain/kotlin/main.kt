@@ -7,6 +7,7 @@ import sceneManager.context.ConfigDto
 import sceneManager.context.Context
 import sceneManager.scenes.ChestScene
 import sceneManager.scenes.GameScene
+import sceneManager.scenes.InventoryScene
 import sceneManager.scenes.MenuScene
 import terminal.Terminal
 import utility.Config
@@ -30,6 +31,7 @@ fun main() {
     sceneManager.addScene(SceneNames.MENU, MenuScene(sceneManager, context))
     sceneManager.addScene(SceneNames.GAME, GameScene(sceneManager, context))
     sceneManager.addScene(SceneNames.CHEST, ChestScene(sceneManager, context))
+    sceneManager.addScene(SceneNames.INVENTORY, InventoryScene(sceneManager, context))
 
 //    sceneManager.switchScene(menuScene)
     terminal.refresh()

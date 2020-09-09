@@ -25,9 +25,6 @@ class ChestOpenSystem(engine: Engine, private val sceneManager: SceneManager) : 
 
         val collider = entity.getComponent<Collider>()!!
         if (player in collider) {
-            val inventoryChest = entity.getComponent<InventoryComponent>()!!
-            inventoryChest.forEach { println(it) }
-
             sceneManager.context.addObject { ChestDto(entity) }
             sceneManager.context.addObject { PlayerDto(player) }
             sceneManager.switchScene(SceneNames.CHEST)
