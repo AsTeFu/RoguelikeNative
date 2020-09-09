@@ -5,15 +5,15 @@ import game.rooms.builder.RoomBuilder
 import sceneManager.IScene
 import sceneManager.SceneManager
 import sceneManager.context.Context
+import sceneManager.context.PlayerDto
 import terminal.Terminal
 
 class GameScene(sceneManager: SceneManager, context: Context) : IScene(sceneManager, context) {
 
-    private lateinit var room: Room
+    private var room: Room = RoomBuilder(sceneManager).build()
 
     override fun start() {
         Terminal.clear()
-        room = RoomBuilder(sceneManager).build()
         room.engine.update()
         Terminal.refresh()
     }

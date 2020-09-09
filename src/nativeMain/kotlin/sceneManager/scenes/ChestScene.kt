@@ -8,6 +8,7 @@ import sceneManager.SceneManager
 import sceneManager.SceneNames
 import sceneManager.context.ChestDto
 import sceneManager.context.Context
+import sceneManager.context.PlayerDto
 import sceneManager.scenes.utils.Cursor
 import sceneManager.scenes.utils.ListSelector
 import sceneManager.scenes.utils.drawBox
@@ -35,7 +36,7 @@ class ChestScene(sceneManager: SceneManager, context: Context) : IScene(sceneMan
 //            Terminal.crop(position, size)
         }
 
-        player = context.getObject<ChestDto>().player
+        player = context.getObject<PlayerDto>().player
         playerInventory = player.getComponent()!!
         chest = context.getObject<ChestDto>().chest.getComponent()!!
 
@@ -48,6 +49,14 @@ class ChestScene(sceneManager: SceneManager, context: Context) : IScene(sceneMan
     }
 
     override fun end() {
+        Terminal.clear()
+        repeat(30) {
+            Terminal.setLayer(it)
+            Terminal.clearArea(position, size)
+//            Terminal.crop(position, size)
+        }
+        Terminal.setLayer(50)
+        Terminal.clearArea(position, size)
         Terminal.clear()
     }
 
@@ -65,38 +74,36 @@ class ChestScene(sceneManager: SceneManager, context: Context) : IScene(sceneMan
         this.render()
     }
 
+    private fun transferItem(source: InventoryComponent, destination: InventoryComponent): Int {
+        val item = selector.currentSelector.currentElement
+
+        if (destination.capacity == destination.inventory.size) return -1
+
+        source.removeItem(selector.currentSelector.index)
+        destination.addItem(item)
+
+        return if (source.inventory.size == selector.currentSelector.index)
+            selector.currentSelector.index - 1
+        else selector.currentSelector.index
+    }
+
     private fun selectItem() {
         if (selector.currentSelector.list.isEmpty()) return
 
-        val item = selector.currentSelector.currentElement
         var playerIndex = 0
         var chestIndex = 0
 
         if (!selector.side) {
-            if (chest.capacity == chest.inventory.size) return
-
-            playerInventory.removeItem(selector.currentSelector.index)
-            chest.addItem(item)
-            if (playerInventory.inventory.size == selector.currentSelector.index)
-                playerIndex = selector.currentSelector.index - 1
-            else playerIndex = selector.currentSelector.index
+            playerIndex = transferItem(playerInventory, chest)
+            if (playerIndex == -1) return
         } else {
-            if (playerInventory.capacity == playerInventory.inventory.size) return
-
-            chest.removeItem(selector.currentSelector.index)
-            playerInventory.addItem(item)
-
-            if (chest.inventory.size == selector.currentSelector.index)
-                chestIndex = selector.currentSelector.index - 1
-            else chestIndex = selector.currentSelector.index
+            chestIndex = transferItem(chest, playerInventory)
+            if (chestIndex == -1) return
         }
 
-        val playerSelector = ListSelector(playerInventory.inventory, playerIndex)
-        val chestSelector = ListSelector(chest.inventory, chestIndex)
-
         selector = Selector(
-            playerSelector,
-            chestSelector,
+            ListSelector(playerInventory.inventory, playerIndex),
+            ListSelector(chest.inventory, chestIndex),
             if (selector.side) KeyCode.RightArrow else KeyCode.LeftArrow
         )
     }

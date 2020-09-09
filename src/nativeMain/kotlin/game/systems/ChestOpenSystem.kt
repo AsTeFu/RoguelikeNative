@@ -9,6 +9,7 @@ import game.components.inventoryComponent.InventoryComponent
 import sceneManager.SceneManager
 import sceneManager.SceneNames
 import sceneManager.context.ChestDto
+import sceneManager.context.PlayerDto
 import utility.Input
 import utility.KeyCode
 
@@ -27,7 +28,8 @@ class ChestOpenSystem(engine: Engine, private val sceneManager: SceneManager) : 
             val inventoryChest = entity.getComponent<InventoryComponent>()!!
             inventoryChest.forEach { println(it) }
 
-            sceneManager.context.addObject { ChestDto(player, entity) }
+            sceneManager.context.addObject { ChestDto(entity) }
+            sceneManager.context.addObject { PlayerDto(player) }
             sceneManager.switchScene(SceneNames.CHEST)
         }
     }

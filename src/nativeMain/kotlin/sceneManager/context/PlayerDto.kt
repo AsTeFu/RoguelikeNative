@@ -2,6 +2,6 @@ package sceneManager.context
 
 import ecs.Entity
 
-class ChestDto(
-    val chest: Entity,
+class PlayerDto(
+    val player: Entity
 ) : ObjectDto
