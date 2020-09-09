@@ -37,7 +37,7 @@ private fun verticalBorder(position: Vector2, size: Vector2) {
     verticalLine(position.x + size.x - 1, position.y, size.y)
 }
 
-private fun horizontalLine(
+fun horizontalLine(
     x: Int, y: Int, len: Int,
     display: Display = Display('=', Colors.WHITE.color)
 ) {
@@ -47,11 +47,11 @@ private fun horizontalLine(
     )
 }
 
-private fun verticalLine(
+fun verticalLine(
     x: Int, y: Int, len: Int,
     display: Display = Display('|', Colors.WHITE.color)
 ) {
     Terminal.setColor(display.color)
     // TODO сделать норм высоту
-    repeat(len - 1) { Terminal.put(x, y + it, display.graphic) }
+    repeat(len - 2) { Terminal.put(x, y + it + 1, display.graphic) }
 }

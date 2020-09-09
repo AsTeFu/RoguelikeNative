@@ -2,9 +2,10 @@ package sceneManager.scenes.utils
 
 import utility.clamp
 
-class ListSelector<T>(private val list: List<T>) {
+class ListSelector<T>(val list: List<T>, startIndex: Int = 0) {
 
-    private var index: Int = 0
+    var index: Int = startIndex
+        private set
 
     val currentElement
         get() = list[index]

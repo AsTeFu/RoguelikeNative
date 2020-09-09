@@ -8,5 +8,11 @@ enum class KeyCode(val code: Int) {
     Enter(TK_ENTER),
     W(TK_W),
     S(TK_S),
-    ESCAPE(TK_ESCAPE)
+    Escape(TK_ESCAPE),
+    LeftArrow(TK_LEFT),
+    RightArrow(TK_RIGHT),
+    UpArrow(TK_UP),
+    DownArrow(TK_DOWN),
+    D(TK_D),
+    A(TK_A),
 }

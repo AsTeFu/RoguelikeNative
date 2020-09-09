@@ -11,4 +11,6 @@ object Input {
 
     fun getKeyUp(keyCode: KeyCode): Boolean = terminal.peek() == (keyCode.code or TK_KEY_RELEASED)
 
+    fun peek() = KeyCode.values().find { it.code == terminal.peek() }
+
 }

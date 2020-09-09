@@ -15,9 +15,11 @@ class InventoryComponent(var capacity: Int) : IComponent {
     }
 
     fun removeItem(index: Int): InventoryItem? {
-        return items[index]
+        return items.removeAt(index)
     }
 
     fun forEach(action: (InventoryItem) -> Unit) = items.forEach(action)
+
+    operator fun contains(item: InventoryItem) = items.contains(item)
 
 }
